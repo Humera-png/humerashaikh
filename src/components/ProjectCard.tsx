@@ -128,13 +128,7 @@ export default function ProjectCard({ project, index }: { project: Project; inde
             onClick={() => setOpen((v) => !v)}
             className="link-underline text-[13.5px] font-medium text-ink"
           >
-            {open
-              ? project.image
-                ? "Hide screenshot & process"
-                : "Hide the process"
-              : project.image
-                ? "View screenshot & process"
-                : "View the process"}
+            {open ? "Hide the breakdown" : "View the breakdown"}
           </button>
         </div>
 
