@@ -15,6 +15,11 @@ export type Project = {
    *  more consistently against the rest of the site than six mismatched UI
    *  screenshots do). */
   image: string;
+  /** Live product URL, when the client allows it to be shown publicly. */
+  liveUrl?: string;
+  /** Upwork case-study link, used instead of liveUrl when the live product
+   *  is under client confidentiality. */
+  caseStudyUrl?: string;
   /** True when the long-form copy is inferred from the title/skillset rather than
    *  a captured Upwork description; swap in the real write-up when available. */
   inferred?: boolean;
@@ -42,6 +47,7 @@ export const projects: Project[] = [
     glyph: "◍",
     tone: "a",
     image: "/projects/jarvis-ai.png",
+    caseStudyUrl: "https://www.upwork.com/freelancers/~01abf633e12f90d800?p=2046974642070323200",
     inferred: true,
   },
   {
@@ -61,6 +67,7 @@ export const projects: Project[] = [
     glyph: "◈",
     tone: "b",
     image: "/projects/flowsync.png",
+    liveUrl: "https://flowsyncc.netlify.app",
     inferred: true,
   },
   {
@@ -81,6 +88,7 @@ export const projects: Project[] = [
     glyph: "◐",
     tone: "c",
     image: "/projects/billpro.png",
+    caseStudyUrl: "https://www.upwork.com/freelancers/~01abf633e12f90d800?p=2046970276953825280",
   },
   {
     slug: "ai-knowledge-base",
@@ -99,6 +107,7 @@ export const projects: Project[] = [
     glyph: "◇",
     tone: "d",
     image: "/projects/ai-knowledge-base.png",
+    liveUrl: "https://islamicadvisor-anaichatbot.netlify.app",
     inferred: true,
   },
   {
@@ -119,6 +128,7 @@ export const projects: Project[] = [
     glyph: "◎",
     tone: "e",
     image: "/projects/hypermoon.png",
+    liveUrl: "https://hypermoon.netlify.app",
   },
   {
     slug: "khidma",
@@ -137,5 +147,6 @@ export const projects: Project[] = [
     glyph: "◒",
     tone: "f",
     image: "/projects/khidma.png",
+    liveUrl: "https://khidma.live",
   },
 ];

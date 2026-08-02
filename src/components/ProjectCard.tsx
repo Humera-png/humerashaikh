@@ -84,12 +84,34 @@ export default function ProjectCard({ project, index }: { project: Project; inde
           {project.tags.join(" / ")}
         </p>
 
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="link-underline text-[13.5px] font-medium text-ink"
-        >
-          {open ? "Hide screenshot & process" : "View screenshot & process"}
-        </button>
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline text-[13.5px] font-medium text-ink"
+            >
+              View Live &#8599;
+            </a>
+          )}
+          {project.caseStudyUrl && (
+            <a
+              href={project.caseStudyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline text-[13.5px] font-medium text-ink"
+            >
+              View Case Study &#8599;
+            </a>
+          )}
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="link-underline text-[13.5px] font-medium text-ink"
+          >
+            {open ? "Hide screenshot & process" : "View screenshot & process"}
+          </button>
+        </div>
 
         <AnimatePresence initial={false}>
           {open && (
