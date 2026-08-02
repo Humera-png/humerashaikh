@@ -50,7 +50,6 @@ export const projects: Project[] = [
       "Currently pre-launch and building in the UK. n8n powers the automated reorder workflows and monitoring running underneath the product.",
     glyph: "◑",
     tone: "g",
-    siteUrl: "https://navialabs.vercel.app",
   },
   {
     slug: "jarvis-ai",
