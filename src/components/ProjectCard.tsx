@@ -11,6 +11,7 @@ const tones: Record<Project["tone"], string> = {
   d: "from-[#E7E9E2] to-[#F4F5F0]",
   e: "from-[#EDE7F6] to-[#F7F4FB]",
   f: "from-[#EEE9DD] to-[#F8F5EE]",
+  g: "from-[#E8EAF0] to-[#F5F6F9]",
 };
 
 export default function ProjectCard({ project, index }: { project: Project; index: number }) {
@@ -105,11 +106,27 @@ export default function ProjectCard({ project, index }: { project: Project; inde
               View Case Study &#8599;
             </a>
           )}
+          {project.siteUrl && (
+            <a
+              href={project.siteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline text-[13.5px] font-medium text-ink"
+            >
+              View Site &#8599;
+            </a>
+          )}
           <button
             onClick={() => setOpen((v) => !v)}
             className="link-underline text-[13.5px] font-medium text-ink"
           >
-            {open ? "Hide screenshot & process" : "View screenshot & process"}
+            {open
+              ? project.image
+                ? "Hide screenshot & process"
+                : "Hide the process"
+              : project.image
+                ? "View screenshot & process"
+                : "View the process"}
           </button>
         </div>
 
@@ -122,7 +139,7 @@ export default function ProjectCard({ project, index }: { project: Project; inde
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="overflow-hidden"
             >
-              {!imgFailed && (
+              {project.image && !imgFailed && (
                 <motion.div
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}

@@ -9,14 +9,17 @@ export type Project = {
   tags: string[];
   outcome: string;
   glyph: string;
-  tone: "a" | "b" | "c" | "d" | "e" | "f";
+  tone: "a" | "b" | "c" | "d" | "e" | "f" | "g";
   /** Real product screenshot on file at /public/projects — held for a future
    *  case-study page rather than shown on the card (a typographic cover reads
    *  more consistently against the rest of the site than six mismatched UI
-   *  screenshots do). */
-  image: string;
+   *  screenshots do). Omitted for projects with no captured screenshot yet. */
+  image?: string;
   /** Live product URL, when the client allows it to be shown publicly. */
   liveUrl?: string;
+  /** Public marketing/landing page for a pre-launch product — distinct from
+   *  liveUrl so the copy never implies a finished product is live. */
+  siteUrl?: string;
   /** Upwork case-study link, used instead of liveUrl when the live product
    *  is under client confidentiality. */
   caseStudyUrl?: string;
@@ -30,6 +33,25 @@ export type Project = {
 // grounded in matching Upwork employment-history write-ups; the other three
 // are reconstructed from their marketing image copy and marked as inferred.
 export const projects: Project[] = [
+  {
+    slug: "navialabs",
+    name: "NaviaLabs",
+    category: "Operations Intelligence",
+    description:
+      "An operations intelligence platform for manufacturers, distributors, and wholesalers: real-time inventory visibility, AI-generated procurement recommendations, and demand forecasting, without replacing the ERP they already run.",
+    problem:
+      "Growing supply chains lose visibility across fragmented systems (ERPs, spreadsheets, WhatsApp), so stockouts get discovered late and procurement decisions stay manual and reactive.",
+    approach:
+      "Founded and building this as my own product rather than a client engagement. It connects to a company's existing tools instead of asking them to replace anything, and automates as much of the operational grunt work as the risk tolerance allows, with a human approval gate on anything that spends money.",
+    architecture:
+      "ERP, spreadsheet, and warehouse data → n8n-orchestrated automation layer → AI reorder and demand-forecasting engine → a natural-language operations agent and executive dashboard, with a full audit trail on every automated decision.",
+    tags: ["n8n", "Automation", "Generative AI", "Next.js"],
+    outcome:
+      "Currently pre-launch and building in the UK. n8n powers the automated reorder workflows and monitoring running underneath the product.",
+    glyph: "◑",
+    tone: "g",
+    siteUrl: "https://navialabs.vercel.app",
+  },
   {
     slug: "jarvis-ai",
     name: "Jarvis AI",
