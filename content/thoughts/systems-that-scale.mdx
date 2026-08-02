@@ -1,0 +1,29 @@
+---
+title: "Systems That Scale."
+excerpt: "What actually separates infrastructure that holds up from infrastructure that breaks."
+date: "2026-05-05"
+readingTime: "5 min read"
+category: "Systems"
+---
+
+Most systems don't fail the day they're built. They fail eighteen months later, when the person who understood every edge case has moved on and the thing that used to be "quick to fix" now takes a week because nobody's sure what else it touches.
+
+That gap, between working today and holding up over time, is the whole game.
+
+> The systems that scale well are almost always the ones that look a little boring from the outside.
+
+## Boring is a feature
+
+The systems that scale well are almost always the ones that look a little boring from the outside. Clear boundaries between pieces. Predictable data flow. Fewer clever shortcuts, more explicit decisions written down where the next person can find them.
+
+The systems that don't scale are usually the ones that were impressive to build: full of implicit assumptions that made sense to exactly one person, on exactly one day.
+
+## Design for the handoff, not just the launch
+
+I try to build as if I won't be the one maintaining this in a year. That changes what I prioritize: naming things clearly, keeping automation observable instead of silent, and making sure a failure surfaces loudly instead of quietly corrupting data three steps downstream.
+
+## The real test
+
+A system scales when adding the next customer, the next workflow, or the next team member doesn't require re-deriving how the last one was handled. If every new case needs a special conversation with whoever built it, it's not infrastructure yet. It's still a personal project that other people happen to depend on.
+
+Getting from one to the other is most of what "AI systems architecture" actually means, underneath the label.

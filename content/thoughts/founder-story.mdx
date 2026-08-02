@@ -1,0 +1,29 @@
+---
+title: "A Founder Came To Me With A Problem."
+excerpt: "A short story about diagnosing the real issue behind a 'we need more devs' request."
+date: "2026-05-21"
+readingTime: "4 min read"
+category: "Story"
+---
+
+A founder reached out with a simple ask: "We need another developer. Our ops team can't keep up with order volume."
+
+That's a reasonable-sounding request. It's also, more often than not, the wrong diagnosis, so before scoping a hire, I asked to sit in on how an order actually moved from "received" to "fulfilled."
+
+## What was actually happening
+
+The order came in through one system. Someone manually copied the details into a spreadsheet. Someone else checked the spreadsheet against inventory, by hand, a few times a day. If stock was low, a third person had to notice and re-order. Nothing was connected. Three humans were the glue holding four systems together.
+
+The team wasn't short on developers. They were short on a system that didn't need three people acting as human middleware for every single order.
+
+> Three humans were the glue holding four systems together.
+
+## What we built instead
+
+Instead of a new hire, we built the pricing and inventory logic directly into one platform: orders synced automatically, stock levels updated in real time, and reordering triggered itself below a threshold instead of waiting for someone to notice. The spreadsheet disappeared entirely.
+
+## The outcome
+
+The "capacity problem" turned out to be a thirty-minute manual reconciliation happening four times a day, multiplied across a growing order volume. Once that step was automated, the same team that was drowning had headroom again, without adding a single person.
+
+The lesson I keep relearning: when someone asks for more hands, it's worth spending a day watching what those hands are actually doing before agreeing.
