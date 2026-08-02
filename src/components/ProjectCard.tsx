@@ -69,16 +69,24 @@ export default function ProjectCard({ project, index }: { project: Project; inde
             <h4 className="font-display text-[34px] font-medium leading-[1.02] tracking-tight text-ink sm:text-[40px]">
               {project.name}
             </h4>
+            {project.note && (
+              <p className="mt-2 text-[11.5px] font-medium italic text-ink/50">({project.note})</p>
+            )}
           </div>
         </div>
       </div>
 
       <div>
         <p className="mb-3 text-[13px] font-semibold uppercase tracking-[0.1em] text-muted">{project.category}</p>
-        <h3 className="mb-4 font-display text-[26px] font-medium tracking-tight text-ink sm:text-[30px]">
+        <h3 className="mb-1.5 font-display text-[26px] font-medium tracking-tight text-ink sm:text-[30px]">
           {project.name}
         </h3>
-        <p className="mb-6 text-[15.5px] leading-[1.7] text-muted">{project.description}</p>
+        {project.note && (
+          <p className="mb-4 text-[13px] font-medium italic text-muted">({project.note})</p>
+        )}
+        <p className={`${project.note ? "" : "mt-4"} mb-6 text-[15.5px] leading-[1.7] text-muted`}>
+          {project.description}
+        </p>
 
         <p className="mb-5 border-t border-line pt-5 text-[14px] text-muted">
           <span className="font-semibold uppercase tracking-[0.06em] text-ink/70">Stack</span>{" "}
@@ -147,7 +155,7 @@ export default function ProjectCard({ project, index }: { project: Project; inde
                   className="mt-6 overflow-hidden rounded-xl border border-line"
                 >
                   <p className="border-b border-line bg-paper px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">
-                    Product screenshot
+                    {project.screenshotLabel ?? "Product screenshot"}
                   </p>
                   <img
                     src={project.image}

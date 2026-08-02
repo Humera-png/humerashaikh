@@ -23,6 +23,11 @@ export type Project = {
   /** Upwork case-study link, used instead of liveUrl when the live product
    *  is under client confidentiality. */
   caseStudyUrl?: string;
+  /** Short status note shown next to the title, e.g. "Ongoing — not public yet". */
+  note?: string;
+  /** Overrides the default "Product screenshot" caption on the expandable
+   *  image, e.g. "Marketing preview" for a pre-launch landing page. */
+  screenshotLabel?: string;
   /** True when the long-form copy is inferred from the title/skillset rather than
    *  a captured Upwork description; swap in the real write-up when available. */
   inferred?: boolean;
@@ -50,6 +55,9 @@ export const projects: Project[] = [
       "Currently pre-launch and building in the UK. n8n powers the automated reorder workflows and monitoring running underneath the product.",
     glyph: "◑",
     tone: "g",
+    image: "/projects/navialabs.png",
+    note: "Ongoing — the live product can't be shown publicly yet",
+    screenshotLabel: "Marketing preview",
   },
   {
     slug: "jarvis-ai",
