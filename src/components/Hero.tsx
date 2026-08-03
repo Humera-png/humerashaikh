@@ -120,6 +120,7 @@ export default function Hero() {
                 src="/portrait.png"
                 alt="Portrait of Humera Shaikh"
                 className="h-full w-full object-cover object-top"
+                style={{ filter: "saturate(0.9) contrast(1.04)" }}
                 onError={() => setImgFailed(true)}
               />
             ) : (
@@ -128,12 +129,20 @@ export default function Hero() {
               </div>
             )}
 
+            {/* vignette: fades the busy background toward the edges, keeps the center sharp */}
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background: "radial-gradient(ellipse 65% 60% at 50% 32%, transparent 55%, rgba(23,22,26,0.4) 100%)",
+              }}
+            />
+
             {/* soft light sweep, tracks pointer — stands in for a real light source */}
             <motion.div
               className="pointer-events-none absolute inset-0 opacity-30 mix-blend-overlay"
               style={{ background: lightBackground }}
             />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/10 via-transparent to-transparent" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/25 via-transparent to-transparent" />
           </motion.div>
 
           {/* a grounded contact shadow — small and tight, not a glow */}
