@@ -9,7 +9,7 @@ export type Project = {
   tags: string[];
   outcome: string;
   glyph: string;
-  tone: "a" | "b" | "c" | "d" | "e" | "f" | "g";
+  tone: "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h";
   /** Real product screenshot on file at /public/projects — held for a future
    *  case-study page rather than shown on the card (a typographic cover reads
    *  more consistently against the rest of the site than six mismatched UI
@@ -58,6 +58,25 @@ export const projects: Project[] = [
     image: "/projects/navialabs.png",
     note: "Ongoing — the live product can't be shown publicly yet",
     screenshotLabel: "Marketing preview",
+  },
+  {
+    slug: "nami",
+    name: "NAMI",
+    category: "Automation Consultancy",
+    description:
+      "A full marketing site and service platform for my own automation consultancy: an interactive audit tool, a documented delivery process, and case-study structure that make the offer concrete instead of vague.",
+    problem:
+      "Teams lose real hours to manual handoffs between tools that should already talk to each other, repetitive decisions made by hand every time, and follow-ups that only happen because someone remembered to check.",
+    approach:
+      "Built the whole site myself, positioning, copy, and interaction design included, with an 'Audit' tool where a visitor describes one workflow and sees NAMI's read on it: the trigger, the repetitive actions inside it, the decision point, and whether it's worth automating.",
+    architecture:
+      "A Next.js site built around animated, interactive system diagrams (a before/after transformation, a live decision loop, a full architecture map) so the site demonstrates the same systems-thinking NAMI sells, rather than just describing it.",
+    tags: ["Next.js", "n8n", "Automation", "Generative AI"],
+    outcome:
+      "A live consultancy site with a working audit tool, a documented seven-step delivery process, and case-study and industry sections, built to turn 'we do automation' into something a visitor can actually evaluate.",
+    glyph: "◕",
+    tone: "h",
+    liveUrl: "https://namiautomationsystems.vercel.app/",
   },
   {
     slug: "jarvis-ai",
