@@ -76,6 +76,7 @@ export const projects: Project[] = [
       "A live consultancy site with a working audit tool, a documented seven-step delivery process, and case-study and industry sections, built to turn 'we do automation' into something a visitor can actually evaluate.",
     glyph: "◕",
     tone: "h",
+    image: "/projects/namiautomation.png",
     liveUrl: "https://namiautomationsystems.vercel.app/",
   },
   {
