@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="LeadFlow: How I Automated 44 Leads & Saved 10 Hours/Week">
+    <meta property="og:description" content="See how I built a custom automation dashboard to manage my entire lead pipeline with zero manual work.">
+    <meta property="og:type" content="website">
+    <meta name="description" content="LeadFlow Case Study - Custom Lead Management & Automation Dashboard">
+    <title>LeadFlow Case Study - Humera Shaikh</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #6B4CE6 0%, #4B3FD9 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .hero-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 16px;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .stats-grid {
+            max-width: 1000px;
+            margin: -30px auto 0;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e0e0e0;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #6B4CE6;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 60px auto 0;
+            padding: 0 20px 60px;
+        }
+
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #6B4CE6;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: #6B4CE6;
+            border-radius: 2px;
+        }
+
+        .section-text {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 16px;
+        }
+
+        .highlight-box {
+            background: #f0f4ff;
+            border-left: 4px solid #6B4CE6;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+            font-size: 14px;
+        }
+
+        .highlight-box strong {
+            color: #4B3FD9;
+        }
+
+        .list {
+            list-style: none;
+            margin: 16px 0;
+        }
+
+        .list li {
+            padding: 10px 0;
+            padding-left: 28px;
+            position: relative;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #6B4CE6;
+            font-weight: 600;
+        }
+
+        .metrics-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .metrics-table th {
+            background: #6B4CE6;
+            color: white;
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .metrics-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+
+        .metrics-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .metrics-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .metric-label {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .metric-value {
+            color: #4B3FD9;
+            font-weight: 600;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #6B4CE6 0%, #4B3FD9 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .cta-section h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .cta-section p {
+            opacity: 0.95;
+            margin-bottom: 24px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #6B4CE6;
+            padding: 12px 32px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            padding: 40px 20px;
+            text-align: center;
+            color: #666;
+        }
+
+        .footer p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .footer .author {
+            font-weight: 600;
+            color: #6B4CE6;
+            font-size: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-label">Case Study</div>
+        <h1>LeadFlow: Custom Automation Dashboard</h1>
+        <p>How I went from managing 44 leads manually to 100% automated — and saved 10 hours every week</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">44</div>
+                <div class="stat-label">Leads in Pipeline</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Automated</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">10 hrs</div>
+                <div class="stat-label">Freed per Week</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">Zero</div>
+                <div class="stat-label">Manual Work</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="section">
+            <h2 class="section-title">Why I Built LeadFlow</h2>
+            <p class="section-text">When I started my automation architect business, I faced a challenge: how do I prove to clients that I can build exactly what I recommend? How do I show them that I practice what I preach?</p>
+            <p class="section-text">The answer was LeadFlow. I decided to build my own custom lead management and automation tool to solve my own problem while simultaneously proving my technical expertise.</p>
+
+            <h3 style="font-size: 16px; color: #333; margin: 24px 0 12px; font-weight: 600;">The Challenge</h3>
+            <ul class="list">
+                <li>Managing 44+ leads manually across spreadsheets</li>
+                <li>Following up inconsistently (human memory fails)</li>
+                <li>No visibility into lead status in real-time</li>
+                <li>Spending 10+ hours per week on lead management</li>
+                <li>Couldn't demonstrate automation expertise to prospects</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">The Solution</h2>
+            <p class="section-text">I built LeadFlow from scratch—a custom full-stack automation dashboard that manages my entire lead pipeline and runs on autopilot. The tool demonstrates three critical capabilities: full-stack development skills, automation workflow design, and business process optimization.</p>
+
+            <h3 style="font-size: 16px; color: #333; margin: 24px 0 12px; font-weight: 600;">What LeadFlow Does</h3>
+            <ul class="list">
+                <li>Centralized lead pipeline (44+ leads in one place)</li>
+                <li>Automated email sequences (Day 1, Day 5, Day 10)</li>
+                <li>Real-time open and reply tracking</li>
+                <li>Calendar integration for call booking</li>
+                <li>Status tracking (Cold to Warm to Hot to Customer)</li>
+                <li>Automation engine that runs 24/7 with zero manual input</li>
+            </ul>
+
+            <h3 style="font-size: 16px; color: #333; margin: 24px 0 12px; font-weight: 600;">Technical Stack</h3>
+            <table class="metrics-table">
+                <tr>
+                    <th>Component</th>
+                    <th>Technology</th>
+                </tr>
+                <tr>
+                    <td class="metric-label">Frontend</td>
+                    <td>React on Vercel</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Backend</td>
+                    <td>Node.js on Railway</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Automation</td>
+                    <td>n8n and Make.com</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Data</td>
+                    <td>Google Sheets & MongoDB</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">APIs</td>
+                    <td>Gmail, Calendar, Calendly</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Results & Impact</h2>
+            <table class="metrics-table">
+                <tr>
+                    <th>Metric</th>
+                    <th>Before</th>
+                    <th>After</th>
+                    <th>Impact</th>
+                </tr>
+                <tr>
+                    <td class="metric-label">Lead Management Time</td>
+                    <td>10+ hours per week</td>
+                    <td>2 hours per week</td>
+                    <td class="metric-value">80% saved</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Follow-up Consistency</td>
+                    <td>Manual (inconsistent)</td>
+                    <td>Automated (100%)</td>
+                    <td class="metric-value">Perfect</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Lead Status Visibility</td>
+                    <td>Unclear</td>
+                    <td>Real-time dashboard</td>
+                    <td class="metric-value">Always clear</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Email Sequences</td>
+                    <td>Never sent</td>
+                    <td>Automatic Day 1, 5, 10</td>
+                    <td class="metric-value">Full automation</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Open Rate Tracking</td>
+                    <td>None</td>
+                    <td>Real-time tracking</td>
+                    <td class="metric-value">Know engagement</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Why This Matters for Clients</h2>
+
+            <div class="highlight-box">
+                <strong>1. Proof of Expertise:</strong> When prospects see LeadFlow, they know I do not just talk about automation. I practice it. I am not recommending solutions I have not used myself.
+            </div>
+
+            <div class="highlight-box">
+                <strong>2. Technical Credibility:</strong> LeadFlow demonstrates full-stack capabilities: React frontend, Node.js backend, API integrations, workflow automation, and database design. All the skills needed to build their custom automations.
+            </div>
+
+            <div class="highlight-box">
+                <strong>3. Real Results:</strong> The fact that I save 10 hours per week using LeadFlow shows that automation works. My clients can expect similar transformations.
+            </div>
+
+            <div class="highlight-box">
+                <strong>4. Understanding of Pain:</strong> I built LeadFlow because I experienced the same lead management chaos my prospects face. I understand the problem intimately.
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h3>Ready to Transform Your Business?</h3>
+            <p>See how I can build a custom automation system for you — just like LeadFlow, but tailored to your specific workflow.</p>
+            <button class="cta-button" onclick="window.open('https://calendly.com/humerashaikh/discovery', '_blank')">Book Your Free Call</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p class="author">Built by Humera Shaikh | Automation Architect</p>
+        <p>LeadFlow: leadflowtool.vercel.app | Portfolio: humerashaikh.vercel.app</p>
+        <p>humerashaikh605@gmail.com | @humera.builds</p>
+    </div>
+</body>
+</html>
