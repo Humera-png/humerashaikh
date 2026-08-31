@@ -9,7 +9,7 @@ export type Project = {
   tags: string[];
   outcome: string;
   glyph: string;
-  tone: "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h";
+  tone: "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j";
   /** Real product screenshot on file at /public/projects — held for a future
    *  case-study page rather than shown on the card (a typographic cover reads
    *  more consistently against the rest of the site than six mismatched UI
@@ -78,6 +78,45 @@ export const projects: Project[] = [
     tone: "h",
     image: "/projects/namiautomation.png",
     liveUrl: "https://namiautomationsystems.vercel.app/",
+  },
+  {
+    slug: "order-processing-automation",
+    name: "Order Processing Automation",
+    category: "E-commerce Operations",
+    description:
+      "An end-to-end automated pipeline connecting a growing e-commerce retailer's Shopify orders straight through to manufacturer production, distributor inventory, and customer notifications.",
+    problem:
+      "Orders from Shopify were manually re-entered into the manufacturer's production system, taking 4-6 hours per order, with an 8% error rate and customer notifications lagging 2-3 days behind.",
+    approach:
+      "Mapped the full order-to-fulfillment chain first, then automated every handoff in it rather than patching the slowest single step.",
+    architecture:
+      "Shopify API → automated validation → manufacturer production-system API → distributor inventory sync → automated email/SMS customer notifications, with every change logged automatically.",
+    tags: ["n8n", "Automation", "REST API", "Database Design"],
+    outcome:
+      "Order processing time dropped from 4-6 hours to 12 minutes (95% faster), error rate fell from 8% to 0.2%, customer notifications went from 2-3 days to same-day, and the client saved $24K within 30 days.",
+    glyph: "●",
+    tone: "j",
+    caseStudyUrl: "/order-processing-case-study.html",
+  },
+  {
+    slug: "leadflow",
+    name: "LeadFlow",
+    category: "Lead Management",
+    description:
+      "A custom lead-management dashboard I built for my own business: centralizes 44+ leads, runs automated follow-up sequences, and tracks status end to end with zero manual input.",
+    problem:
+      "I was managing 44+ leads manually across spreadsheets, following up inconsistently, with no real-time visibility into where anything stood, 10+ hours a week just on lead admin.",
+    approach:
+      "Built it for myself first, so I could prove I use what I recommend rather than just sell it. It runs my actual lead pipeline, not a demo.",
+    architecture:
+      "React frontend on Vercel, Node.js backend on Railway, n8n and Make.com orchestrating automated email sequences and status updates, Google Sheets and MongoDB for data, Gmail/Calendar/Calendly for scheduling.",
+    tags: ["React", "Node.js", "n8n", "Automation"],
+    outcome:
+      "Lead management time cut from 10+ hours a week to 2, with automated Day 1/5/10 follow-up sequences and real-time status tracking replacing manual, inconsistent follow-up.",
+    glyph: "◓",
+    tone: "i",
+    liveUrl: "https://leadflowtool.vercel.app",
+    caseStudyUrl: "/leadflow-case-study.html",
   },
   {
     slug: "jarvis-ai",

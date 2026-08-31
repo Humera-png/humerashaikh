@@ -13,6 +13,8 @@ const tones: Record<Project["tone"], string> = {
   f: "from-[#EEE9DD] to-[#F8F5EE]",
   g: "from-[#E8EAF0] to-[#F5F6F9]",
   h: "from-[#E6E9ED] to-[#F4F6F8]",
+  i: "from-[#EAE7E0] to-[#F6F4EF]",
+  j: "from-[#E7EAE7] to-[#F4F6F4]",
 };
 
 export default function ProjectCard({ project, index }: { project: Project; index: number }) {
