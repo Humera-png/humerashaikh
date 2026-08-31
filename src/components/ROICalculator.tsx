@@ -3,30 +3,41 @@
 import { useMemo, useState } from "react";
 import MagneticButton from "./MagneticButton";
 
-const DEFAULTS = { hours: 8, salary: 35, cost: 5000, errors: 2, errorCost: 50 };
-
 function gbp(n: number) {
   return "£" + Math.round(n).toLocaleString("en-GB");
 }
 
+function toNumber(v: string) {
+  const n = parseFloat(v);
+  return Number.isFinite(n) ? n : 0;
+}
+
 export default function ROICalculator() {
-  const [hours, setHours] = useState(DEFAULTS.hours);
-  const [salary, setSalary] = useState(DEFAULTS.salary);
-  const [cost, setCost] = useState(DEFAULTS.cost);
-  const [errors, setErrors] = useState(DEFAULTS.errors);
-  const [errorCost, setErrorCost] = useState(DEFAULTS.errorCost);
+  const [hours, setHours] = useState("");
+  const [salary, setSalary] = useState("");
+  const [cost, setCost] = useState("");
+  const [errors, setErrors] = useState("");
+  const [errorCost, setErrorCost] = useState("");
+
+  const isReady = toNumber(hours) > 0 && toNumber(salary) > 0 && cost !== "";
 
   const results = useMemo(() => {
+    const h = toNumber(hours);
+    const s = toNumber(salary);
+    const c = toNumber(cost);
+    const e = toNumber(errors);
+    const ec = toNumber(errorCost);
+
     const weeksPerYear = 52;
-    const timeCost = hours * salary * weeksPerYear;
-    const errorsCost = errors * errorCost * weeksPerYear;
+    const timeCost = h * s * weeksPerYear;
+    const errorsCost = e * ec * weeksPerYear;
     const totalAnnualCost = timeCost + errorsCost;
 
-    const paybackMonths = cost > 0 ? Math.round((cost / (totalAnnualCost / 12)) * 10) / 10 : 0;
-    const monthlyMaintenance = cost / 120;
+    const paybackMonths = c > 0 ? Math.round((c / (totalAnnualCost / 12)) * 10) / 10 : 0;
+    const monthlyMaintenance = c / 120;
     const annualMaintenance = monthlyMaintenance * 12;
     const annualSavings = totalAnnualCost - annualMaintenance;
-    const threeYearBenefit = annualSavings * 3 - cost;
+    const threeYearBenefit = annualSavings * 3 - c;
 
     let tier: { label: string; text: string; tone: "good" | "moderate" | "poor" };
     if (paybackMonths <= 3) {
@@ -59,11 +70,11 @@ export default function ROICalculator() {
   }, [hours, salary, cost, errors, errorCost]);
 
   function reset() {
-    setHours(DEFAULTS.hours);
-    setSalary(DEFAULTS.salary);
-    setCost(DEFAULTS.cost);
-    setErrors(DEFAULTS.errors);
-    setErrorCost(DEFAULTS.errorCost);
+    setHours("");
+    setSalary("");
+    setCost("");
+    setErrors("");
+    setErrorCost("");
   }
 
   const toneClasses = {
@@ -78,7 +89,7 @@ export default function ROICalculator() {
       label: "Hours per week on this task",
       value: hours,
       set: setHours,
-      min: 0.5,
+      placeholder: "e.g. 8",
       step: 0.5,
       prefix: null,
       suffix: "hrs/wk",
@@ -89,7 +100,7 @@ export default function ROICalculator() {
       label: "Hourly rate (yours or a team member's)",
       value: salary,
       set: setSalary,
-      min: 5,
+      placeholder: "e.g. 35",
       step: 5,
       prefix: "£",
       suffix: null,
@@ -100,7 +111,7 @@ export default function ROICalculator() {
       label: "Cost to automate",
       value: cost,
       set: setCost,
-      min: 0,
+      placeholder: "e.g. 5000",
       step: 500,
       prefix: "£",
       suffix: null,
@@ -111,18 +122,18 @@ export default function ROICalculator() {
       label: "Errors or rework per week",
       value: errors,
       set: setErrors,
-      min: 0,
+      placeholder: "e.g. 2",
       step: 1,
       prefix: null,
       suffix: "per wk",
-      helper: "From manual mistakes: invoices, data entry, missed steps.",
+      helper: "From manual mistakes: invoices, data entry, missed steps. Leave blank if none.",
     },
     {
       key: "errorCost",
       label: "Cost per error",
       value: errorCost,
       set: setErrorCost,
-      min: 0,
+      placeholder: "e.g. 50",
       step: 10,
       prefix: "£",
       suffix: null,
@@ -139,8 +150,8 @@ export default function ROICalculator() {
             Automation ROI Calculator
           </h1>
           <p className="mt-4 text-[16.5px] leading-[1.7] text-muted">
-            See exactly how much a manual task is really costing you, and how fast automating it would pay for
-            itself. Numbers update as you type.
+            Add the numbers for one manual task your team handles, and see exactly what it costs you, and how fast
+            automating it would pay for itself.
           </p>
         </div>
 
@@ -158,13 +169,19 @@ export default function ROICalculator() {
                     type="number"
                     inputMode="decimal"
                     value={f.value}
-                    min={f.min}
+                    min={0}
                     step={f.step}
+                    placeholder={f.placeholder}
                     onChange={(e) => {
-                      const v = parseFloat(e.target.value);
-                      f.set(Number.isFinite(v) ? Math.max(f.min, v) : f.min);
+                      const raw = e.target.value;
+                      if (raw === "") {
+                        f.set("");
+                        return;
+                      }
+                      const v = parseFloat(raw);
+                      f.set(Number.isFinite(v) ? String(Math.max(0, v)) : "");
                     }}
-                    className="w-full min-w-0 border-none bg-transparent text-[15px] font-medium text-ink outline-none"
+                    className="w-full min-w-0 border-none bg-transparent text-[15px] font-medium text-ink outline-none placeholder:text-muted/50"
                   />
                   {f.suffix && <span className="whitespace-nowrap text-[13px] font-medium text-muted">{f.suffix}</span>}
                 </div>
@@ -173,71 +190,79 @@ export default function ROICalculator() {
             ))}
 
             <button onClick={reset} className="link-underline text-[13.5px] font-medium text-ink">
-              Reset to defaults
+              Clear all fields
             </button>
           </div>
 
-          <div className="rounded-2xl border border-line bg-white p-6 sm:p-8">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div className="min-w-0 rounded-xl bg-paper p-5">
-                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">
-                  Annual cost, manual
-                </p>
-                <p className="break-words font-display text-[26px] font-medium leading-tight text-ink sm:text-[30px]">
-                  {gbp(results.totalAnnualCost)}
-                </p>
-                <p className="mt-1.5 text-[12.5px] leading-[1.5] text-muted">What this task costs you every year.</p>
-              </div>
-              <div className="min-w-0 rounded-xl bg-paper p-5">
-                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">Annual savings</p>
-                <p className="break-words font-display text-[26px] font-medium leading-tight text-ink sm:text-[30px]">
-                  {gbp(results.annualSavings)}
-                </p>
-                <p className="mt-1.5 text-[12.5px] leading-[1.5] text-muted">After automation is deployed.</p>
-              </div>
-            </div>
-
-            <div className="mt-5 rounded-xl border border-line bg-paper p-5">
-              <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">Payback period</p>
-              <p className="break-words font-display text-[24px] font-medium text-ink">
-                {results.paybackMonths} {results.paybackMonths === 1 ? "month" : "months"}
-              </p>
-              <p className="mt-1.5 text-[12.5px] leading-[1.5] text-muted">Until the automation pays for itself.</p>
-            </div>
-
-            <div className={`mt-5 rounded-xl bg-paper py-4 pl-5 pr-5 ${toneClasses[results.tier.tone]}`}>
-              <p className="mb-1.5 text-[14px] font-semibold">{results.tier.label}</p>
-              <p className="text-[13.5px] leading-[1.6] text-ink/80">{results.tier.text}</p>
-            </div>
-
-            <div className="mt-5 rounded-xl bg-paper p-5">
-              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">3-year benefit</p>
-              <p className="break-words font-display text-[24px] font-medium text-ink">
-                {gbp(results.threeYearBenefit)}
-              </p>
-              <p className="mt-1.5 text-[12.5px] leading-[1.5] text-muted">
-                Total savings over 3 years, minus the setup cost.
-              </p>
-            </div>
-
-            <div className="mt-5 border-t border-line pt-5">
-              <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">Cost breakdown</p>
-              <div className="space-y-2.5 text-[13.5px]">
-                <div className="flex items-center justify-between gap-3">
-                  <span className="text-muted">Manual task time</span>
-                  <span className="font-medium text-ink">{gbp(results.timeCost)}</span>
+          {isReady ? (
+            <div className="rounded-2xl border border-line bg-white p-6 sm:p-8">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="min-w-0 rounded-xl bg-paper p-5">
+                  <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">
+                    Annual cost, manual
+                  </p>
+                  <p className="break-words font-display text-[26px] font-medium leading-tight text-ink sm:text-[30px]">
+                    {gbp(results.totalAnnualCost)}
+                  </p>
+                  <p className="mt-1.5 text-[12.5px] leading-[1.5] text-muted">What this task costs you every year.</p>
                 </div>
-                <div className="flex items-center justify-between gap-3">
-                  <span className="text-muted">Errors / rework</span>
-                  <span className="font-medium text-ink">{gbp(results.errorsCost)}</span>
-                </div>
-                <div className="flex items-center justify-between gap-3 border-t border-line pt-2.5 font-semibold">
-                  <span className="text-ink">Total annual waste</span>
-                  <span className="text-ink">{gbp(results.totalAnnualCost)}</span>
+                <div className="min-w-0 rounded-xl bg-paper p-5">
+                  <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">Annual savings</p>
+                  <p className="break-words font-display text-[26px] font-medium leading-tight text-ink sm:text-[30px]">
+                    {gbp(results.annualSavings)}
+                  </p>
+                  <p className="mt-1.5 text-[12.5px] leading-[1.5] text-muted">After automation is deployed.</p>
                 </div>
               </div>
+
+              <div className="mt-5 rounded-xl border border-line bg-paper p-5">
+                <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">Payback period</p>
+                <p className="break-words font-display text-[24px] font-medium text-ink">
+                  {results.paybackMonths} {results.paybackMonths === 1 ? "month" : "months"}
+                </p>
+                <p className="mt-1.5 text-[12.5px] leading-[1.5] text-muted">Until the automation pays for itself.</p>
+              </div>
+
+              <div className={`mt-5 rounded-xl bg-paper py-4 pl-5 pr-5 ${toneClasses[results.tier.tone]}`}>
+                <p className="mb-1.5 text-[14px] font-semibold">{results.tier.label}</p>
+                <p className="text-[13.5px] leading-[1.6] text-ink/80">{results.tier.text}</p>
+              </div>
+
+              <div className="mt-5 rounded-xl bg-paper p-5">
+                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">3-year benefit</p>
+                <p className="break-words font-display text-[24px] font-medium text-ink">
+                  {gbp(results.threeYearBenefit)}
+                </p>
+                <p className="mt-1.5 text-[12.5px] leading-[1.5] text-muted">
+                  Total savings over 3 years, minus the setup cost.
+                </p>
+              </div>
+
+              <div className="mt-5 border-t border-line pt-5">
+                <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">Cost breakdown</p>
+                <div className="space-y-2.5 text-[13.5px]">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-muted">Manual task time</span>
+                    <span className="font-medium text-ink">{gbp(results.timeCost)}</span>
+                  </div>
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-muted">Errors / rework</span>
+                    <span className="font-medium text-ink">{gbp(results.errorsCost)}</span>
+                  </div>
+                  <div className="flex items-center justify-between gap-3 border-t border-line pt-2.5 font-semibold">
+                    <span className="text-ink">Total annual waste</span>
+                    <span className="text-ink">{gbp(results.totalAnnualCost)}</span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="flex min-h-[280px] items-center justify-center rounded-2xl border border-dashed border-line bg-paper p-8 text-center">
+              <p className="max-w-[280px] text-[14.5px] leading-[1.7] text-muted">
+                Fill in the hours, hourly rate, and automation cost on the left, your results will appear here.
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="mt-16 flex flex-wrap items-center gap-6 border-t border-line pt-8">
