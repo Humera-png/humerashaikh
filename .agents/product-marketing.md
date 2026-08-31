@@ -1,6 +1,6 @@
 # Product Marketing Context
 
-**Document version:** v2
+**Document version:** v3
 **Last updated:** 2026-08-31
 
 > Scope note: this doc covers Humera's **freelance / consultancy practice** (Upwork freelancing + NAMI Automation Systems + her personal LinkedIn brand), not NaviaLabs (a separate SaaS product with a different buyer — worth its own context doc later).
@@ -114,9 +114,7 @@
 - +320% operational efficiency (stated headline metric)
 - 500+ LinkedIn connections; real post engagement (1,058+ post impressions, 60 search appearances)
 
-**Notable work:** LeadFlow (custom lead-management tool, 100% automation — has its own case study page); Order Processing Automation for an e-commerce brand (has its own case study page); Usmani Chicken Centre (dual-tier billing/B2B system); Khidma (platform redesign); Jarvis AI; FlowSync; HyperMoon; AI Knowledge-Base System.
-
-**Known gap:** LeadFlow and Order Processing case studies exist as live standalone pages (`/leadflow-case-study.html`, `/order-processing-case-study.html`) but aren't linked from the main portfolio nav or project grid yet — an easy visibility win.
+**Notable work:** LeadFlow (custom lead-management tool, 100% automation — has its own case study page, linked from the main project grid); Order Processing Automation for an e-commerce brand (has its own case study page, linked from the main project grid); Usmani Chicken Centre (dual-tier billing/B2B system); Khidma (platform redesign); Jarvis AI; FlowSync; HyperMoon; AI Knowledge-Base System.
 
 **Testimonials:** (see Customer Language above)
 
@@ -131,5 +129,6 @@
 
 ## Changelog
 *Newest first. One line per revision: what changed and why.*
+- v3 (2026-08-31) — Removed the "case studies not linked" known gap: LeadFlow and Order Processing Automation are now both live in the main Projects grid with working case-study/live links (shipped in commit a223252).
 - v2 (2026-08-31) — Replaced inferred positioning with her actual LinkedIn headline, banner hook, about-section copy, and real metrics ($24K+/month, 95% faster processing, 15+ hrs/week freed, 24 automations, +320% efficiency). Added LeadFlow and Order Processing Automation as proof points. Narrowed primary ICP to e-commerce/manufacturing per her real validated result. Logged the Upwork Connects-at-0 blocker.
 - v1 (2026-08-03) — Initial context, drafted from real Upwork profile data, testimonials, shipped projects, and NAMI's site copy already established in this conversation.
