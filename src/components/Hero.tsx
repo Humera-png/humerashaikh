@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import MagneticButton from "./MagneticButton";
 
@@ -8,15 +8,14 @@ const facts = ["Ahmedabad, India", "B.Tech, Computer Science", "AI Systems Archi
 
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [imgFailed, setImgFailed] = useState(false);
 
   // normalized pointer position, -0.5..0.5 on each axis
   const px = useMotionValue(0);
   const py = useMotionValue(0);
 
-  // the portrait is the only thing that moves — tilt, a few px of parallax, nothing else
-  const portraitX = useSpring(useTransform(px, (v) => v * -14), { damping: 22, stiffness: 120 });
-  const portraitY = useSpring(useTransform(py, (v) => v * -9), { damping: 22, stiffness: 120 });
+  // the card is the only thing that moves — tilt, a few px of parallax, nothing else
+  const cardX = useSpring(useTransform(px, (v) => v * -14), { damping: 22, stiffness: 120 });
+  const cardY = useSpring(useTransform(py, (v) => v * -9), { damping: 22, stiffness: 120 });
   const rotateX = useSpring(useTransform(py, (v) => v * -4), { damping: 20, stiffness: 100 });
   const rotateY = useSpring(useTransform(px, (v) => v * 5), { damping: 20, stiffness: 100 });
 
@@ -107,42 +106,32 @@ export default function Hero() {
 
           <motion.div
             style={{
-              x: portraitX,
-              y: portraitY,
+              x: cardX,
+              y: cardY,
               rotateX,
               rotateY,
               transformStyle: "preserve-3d",
             }}
             className="relative aspect-[4/5] w-full overflow-hidden rounded-t-full rounded-b-3xl bg-paper shadow-lg"
           >
-            {!imgFailed ? (
-              <img
-                src="/portrait.png"
-                alt="Portrait of Humera Shaikh"
-                className="h-full w-full object-cover object-top"
-                style={{ filter: "saturate(0.9) contrast(1.04)" }}
-                onError={() => setImgFailed(true)}
-              />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center">
-                <span className="font-display text-[110px] italic text-ink/15">HS</span>
-              </div>
-            )}
-
-            {/* vignette: fades the busy background toward the edges, keeps the center sharp */}
+            {/* faint paper-stock hairline texture, matches the project cover plates */}
             <div
-              className="pointer-events-none absolute inset-0"
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 opacity-[0.05]"
               style={{
-                background: "radial-gradient(ellipse 65% 60% at 50% 32%, transparent 55%, rgba(23,22,26,0.4) 100%)",
+                backgroundImage: "repeating-linear-gradient(135deg, #17161A 0px, #17161A 1px, transparent 1px, transparent 14px)",
               }}
             />
+
+            <div className="flex h-full w-full items-center justify-center">
+              <span className="font-display text-[64px] italic text-ink/20">Huma</span>
+            </div>
 
             {/* soft light sweep, tracks pointer — stands in for a real light source */}
             <motion.div
               className="pointer-events-none absolute inset-0 opacity-30 mix-blend-overlay"
               style={{ background: lightBackground }}
             />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/25 via-transparent to-transparent" />
           </motion.div>
 
           {/* a grounded contact shadow — small and tight, not a glow */}
